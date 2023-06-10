@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('rank')->nullable();
             $table->integer('role_id')->unsigned();
             $table->timestamps();
-            
+
             // Add foreign key constraint
             $table->foreign('role_id')->references('id')->on('roles');
             });
-            
+
         // Schema::create('users', function (Blueprint $table) {
         //     $table->id();
         //     $table->string('name');

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id'); // auto increment
-            $table->string('user_id')->nullable(); // nullable
+            $table->integer('user_id')->unsigned()->nullable(); // nullable
             $table->double('subtotal', 10, 2)->nullable(); // nullable
             $table->integer('payment_id')->nullable(); // nullable
             $table->string('status')->nullable(); // nullable
@@ -27,7 +27,7 @@ return new class extends Migration
             ->onUpdate('cascade') // update cascade
             ->nullable(); // nullable
             });
-            
+
     }
 
     /**
