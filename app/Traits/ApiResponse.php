@@ -6,8 +6,8 @@ trait ApiResponse
 {
     public function response(
         array $data = [],
+        int $code = 200,
         string $message = "",
-        int $code = 200
     ) {
         return response()->json([
             "status" => $this->getStatusFromCode($code),
@@ -16,13 +16,18 @@ trait ApiResponse
         ], $code);
     }
 
+    public function responseArray(array $array)
+    {
+        return $this->response($array["data"] ?? [], $array["code"] ?? 200, $array["message"] ?? "");
+    }
+
     public function getStatusFromCode(int $code = 200)
     {
         $status = [
-
             200 => "success",
             201 => "success",
 
+            401 => "fail",
             422 => "fail",
             404 => "fail",
             400 => "fail",

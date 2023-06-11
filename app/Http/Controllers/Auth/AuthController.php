@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\Auth\IAuthService;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -19,6 +19,12 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $response = $this->authService->register($request->toArray());
-        return $this->response($response["data"], $response["message"]);
+        return $this->responseArray($response);
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $response = $this->authService->login($request->only(["email", "password"]));
+        return $this->responseArray($response);
     }
 }

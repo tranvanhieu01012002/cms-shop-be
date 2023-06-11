@@ -12,13 +12,12 @@ class UserRepository extends BaseRepository implements IUserRepository
         return User::class;
     }
 
-    public function register(array $fields): string
+    public function register(array $fields): mixed
     {
         $fields["role_id"] = 1;
         $fields["balance"] = 0;
         $fields["name"] = " hieu";
-        
-        $user = $this->model->create($fields);
-        return $user->createToken('auth-token')->plainTextToken;
+
+        return $this->model->create($fields);
     }
 }

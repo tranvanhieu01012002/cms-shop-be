@@ -6,5 +6,5 @@ use App\Repositories\IRepository;
 
 interface IUserRepository extends IRepository
 {
-    public function register(array $fields): string;
+    public function register(array $fields): mixed;
 }
