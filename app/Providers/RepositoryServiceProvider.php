@@ -4,16 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class RepositoryServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         $this->app->bind(
-            \App\Services\Auth\IAuthService::class,
-            \App\Services\Auth\SanctumAuthService::class
+            \App\Repositories\User\IUserRepository::class,
+            \App\Repositories\User\UserRepository::class,
         );
     }
 
