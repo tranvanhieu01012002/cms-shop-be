@@ -24,3 +24,4 @@ Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
 
 Route::get("/users", [UserController::class, "getListUsers"]);
+Route::get("/test-temporary", [UserController::class, "generateUrl"]);
