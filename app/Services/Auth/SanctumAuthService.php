@@ -20,7 +20,7 @@ class SanctumAuthService implements IAuthService
             if (Auth::attempt($request)) {
                 $user = Auth::user();
                 $token = $user->createToken('auth-token')->plainTextToken;
-                return $this->createCustomResponse($token, 200, "create user successful");
+                return $this->createCustomResponse($token, 200, "login successful");
             } else {
                 return [
                     "code" => 401,
@@ -29,11 +29,7 @@ class SanctumAuthService implements IAuthService
                 ];
             }
         } catch (\Throwable $th) {
-            return [
-                "code" => 500,
-                "message" => $th->getMessage(),
-                "data" => []
-            ];
+            return $this->responseErrorCode($th->getMessage());
         }
     }
 
@@ -44,15 +40,11 @@ class SanctumAuthService implements IAuthService
             $token = $user->createToken('auth-token')->plainTextToken;
             return $this->createCustomResponse($token, 201, "create user successful");
         } catch (\Throwable $th) {
-            return [
-                "code" => 500,
-                "message" => $th->getMessage(),
-                "data" => []
-            ];
+            return $this->responseErrorCode($th->getMessage());
         }
     }
 
-    public function createCustomResponse(string $token, int $code = 200, string $message): array
+    public function createCustomResponse(string $token, int $code = 200, string $message = ""): array
     {
         return [
             "code" => $code,
@@ -62,6 +54,15 @@ class SanctumAuthService implements IAuthService
                 "token_type" => "Bearer",
                 "expired" => "forever"
             ]
+        ];
+    }
+
+    public function responseErrorCode(string $message = "")
+    {
+        return [
+            "code" => 500,
+            "message" => $message,
+            "data" => []
         ];
     }
 }

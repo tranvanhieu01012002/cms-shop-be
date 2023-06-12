@@ -20,4 +20,10 @@ class UserRepository extends BaseRepository implements IUserRepository
 
         return $this->model->create($fields);
     }
+
+    public function getListUserWithoutAdmin(int $limit)
+    {
+        $roleAdmin = 2;
+        return $this->model->where("role_id", "<>", $roleAdmin)->paginate();
+    }
 }

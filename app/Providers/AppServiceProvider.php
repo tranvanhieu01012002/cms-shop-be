@@ -15,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\Auth\IAuthService::class,
             \App\Services\Auth\SanctumAuthService::class
         );
+
+        $this->app->bind(
+            \App\Services\User\IUserService::class,
+            \App\Services\User\UserService::class
+        );
     }
 
     /**

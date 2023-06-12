@@ -5,7 +5,7 @@ namespace App\Traits;
 trait ApiResponse
 {
     public function response(
-        array $data = [],
+        mixed $data = [],
         int $code = 200,
         string $message = "",
     ) {
