@@ -23,7 +23,11 @@ class UserController extends Controller
 
     public function generateUrl()
     {
-        $url = Storage::temporaryUploadUrl("images/first.png", now()->addMinutes(15));
+        // $url = Storage::temporaryUploadUrl("images/image123.png", now()->addMinutes(15));
+        $url = Storage::temporaryUrl("images/image123.png", now()->addMinutes());
+        // $status = Storage::setVisibility("images/first3.jpg", "public");
+        // $url = Storage::setVisibility("images/first2.png", "public");
+        // ->temporaryUploadUrl("images/first1.png", now()->addMinutes(15));
         return $this->response(["url" => $url]);
     }
 }
