@@ -9,8 +9,6 @@ class UserService implements IUserService
 {
     protected IUserRepository $userRepo;
 
-    protected int $paginate = 15;
-
     public function __construct(IUserRepository $userRepo)
     {
         $this->userRepo = $userRepo;
@@ -18,6 +16,6 @@ class UserService implements IUserService
 
     public function getListUsers(Request $request)
     {
-        return $this->userRepo->getListUserWithoutAdmin($this->paginate);
+        return $this->userRepo->getListUserWithoutAdmin();
     }
 }

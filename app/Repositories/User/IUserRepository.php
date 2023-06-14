@@ -8,5 +8,5 @@ interface IUserRepository extends IRepository
 {
     public function register(array $fields): mixed;
 
-    public function getListUserWithoutAdmin(int $limit);
+    public function getListUserWithoutAdmin();
 }

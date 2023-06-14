@@ -20,4 +20,10 @@ class CategoryController extends Controller
         $response = $this->categoryService->create($request->toArray());
         return $this->responseArray($response);
     }
+
+    public function get()
+    {
+        $response = $this->categoryService->get();
+        return $this->responseArray($response);
+    }
 }

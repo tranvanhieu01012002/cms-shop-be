@@ -10,11 +10,13 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $appends = ["image"];
+
     protected $fillable = [
         "name",
         "description",
         "slug",
-        "category_id"
+        "category_id",
     ];
 
     protected $hidden = [
@@ -30,8 +32,7 @@ class Category extends Model
     public function media()
     {
         return $this->belongsToMany(Media::class, "media_model", "row_id", "media_id")
-            ->withPivot("table")
-            ->wherePivot("table", $this->getTable());
+            ->withPivot("table");
     }
 
     public function setNameAttribute(string $value)
@@ -39,4 +40,9 @@ class Category extends Model
         $this->attributes["name"] = $value;
         $this->attributes["slug"] = Str::slug($value);
     }
+
+    // public function getImageAttribute()
+    // {
+    //     return $this->media[0]->path ?? "";
+    // }
 }

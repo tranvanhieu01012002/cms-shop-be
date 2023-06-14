@@ -2,6 +2,7 @@
 
 namespace App\Services\Category;
 
+use App\Models\Category;
 use App\Repositories\Category\ICategoryRepository;
 use App\Repositories\Media\IMediaRepository;
 use App\Traits\PrepareDataResponse;
@@ -37,11 +38,19 @@ class CategoryService implements ICategoryService
                 "table" => $tableName
             ]
         );
-        
+
         ['url' => $url, 'headers' => ["Host" => [$host]]] = generateUploadUrl($url);
         $response["url"] = $url;
         $response["host"] = $host;
 
         return $this->prepareData($response, 201, "create successful category!");
+    }
+
+    public function get()
+    {
+        // $limit = 15;
+        // $response = Category::find(3);
+        // $data = $response->media()->paginate($limit);
+        // return $this->prepareData($data, 200, "get successful");
     }
 }

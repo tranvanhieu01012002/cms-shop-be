@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  db:
+    image: 'mysql:latest'
+    container_name: db_cms
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: admin1
+      MYSQL_PASSWORD: password123
+      MYSQL_DATABASE: db-cms
+    restart: always
+volumes:
+  mysql_data:
+

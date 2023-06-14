@@ -24,7 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
 
-Route::get("/users", [UserController::class, "getListUsers"]);
 Route::get("/test-temporary", [UserController::class, "generateUrl"]);
 
-Route::post("/categories/create",[CategoryController::class,"create"]);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get("/users", [UserController::class, "getListUsers"]);
+    Route::post("/categories", [CategoryController::class, "create"]);
+    Route::get("/categories", [CategoryController::class, "get"]);
+});
