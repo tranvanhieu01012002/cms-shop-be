@@ -28,17 +28,17 @@ class CategoryService implements ICategoryService
         $tableName = $this->categoryRepo->getEntityModel()->getTable();
         $url =  $tableName . "/" . $attributes["file"][0];
 
-        $response = $this->categoryRepo->create($attributes);
-        $file = $this->mediaRepo->create(["path" => $url]);
+        // $response = $this->categoryRepo->create($attributes);
+        // $file = $this->mediaRepo->create(["path" => $url]);
 
-        $response->media()->attach(
-            $file->id,
-            [
-                "table" => $tableName
-            ]
-        );
+        // $response->media()->attach(
+        //     $file->id,
+        //     [
+        //         "table" => $tableName
+        //     ]
+        // );
         
-        ['url' => $url, 'headers' => ["Host" => $host]] = generateUploadUrl($url);
+        ['url' => $url, 'headers' => ["Host" => [$host]]] = generateUploadUrl($url);
         $response["url"] = $url;
         $response["host"] = $host;
 
