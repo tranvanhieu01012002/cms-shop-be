@@ -20,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\User\IUserService::class,
             \App\Services\User\UserService::class
         );
+
+        $this->app->bind(
+            \App\Services\Category\ICategoryService::class,
+            \App\Services\Category\CategoryService::class
+        );
+
     }
 
     /**

@@ -4,8 +4,39 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "description",
+        "slug",
+        "category_id"
+    ];
+
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
+    public function media()
+    {
+        return $this->belongsToMany(Media::class, "media_model", "row_id", "media_id")
+            ->withPivot("table")
+            ->wherePivot("table", $this->getTable());
+    }
+
+    public function setNameAttribute(string $value)
+    {
+        $this->attributes["name"] = $value;
+        $this->attributes["slug"] = Str::slug($value);
+    }
 }

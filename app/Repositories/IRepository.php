@@ -16,6 +16,8 @@ interface IRepository
 
     public function first();
 
+    public function getEntityModel();
+
     /**
      * Action methods
      */

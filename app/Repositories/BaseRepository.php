@@ -78,4 +78,9 @@ abstract class BaseRepository implements IRepository
 
         return false;
     }
+
+    public function getEntityModel()
+    {
+        return $this->model;
+    }
 }

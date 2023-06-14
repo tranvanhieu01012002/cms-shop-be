@@ -3,10 +3,13 @@
 namespace App\Services\Auth;
 
 use App\Repositories\User\IUserRepository;
+use App\Traits\PrepareDataResponse;
 use Illuminate\Support\Facades\Auth;
 
 class SanctumAuthService implements IAuthService
 {
+    use PrepareDataResponse;
+
     protected IUserRepository $userRepo;
 
     public function __construct(IUserRepository $userRepo)
@@ -22,14 +25,10 @@ class SanctumAuthService implements IAuthService
                 $token = $user->createToken('auth-token')->plainTextToken;
                 return $this->createCustomResponse($token, 200, "login successful");
             } else {
-                return [
-                    "code" => 401,
-                    "message" => "username or email were incorrect!",
-                    "data" => []
-                ];
+                return  $this->prepareData([], 401, "username or email were incorrect!");;
             }
         } catch (\Throwable $th) {
-            return $this->responseErrorCode($th->getMessage());
+            return $this->prepareDataServerError($th->getMessage());
         }
     }
 
@@ -40,29 +39,17 @@ class SanctumAuthService implements IAuthService
             $token = $user->createToken('auth-token')->plainTextToken;
             return $this->createCustomResponse($token, 201, "create user successful");
         } catch (\Throwable $th) {
-            return $this->responseErrorCode($th->getMessage());
+            return $this->prepareDataServerError($th->getMessage());
         }
     }
 
     public function createCustomResponse(string $token, int $code = 200, string $message = ""): array
     {
-        return [
-            "code" => $code,
-            "message" => $message,
-            "data" => [
-                "token" => $token,
-                "token_type" => "Bearer",
-                "expired" => "forever"
-            ]
+        $data = [
+            "token" => $token,
+            "token_type" => "Bearer",
+            "expired" => "forever"
         ];
-    }
-
-    public function responseErrorCode(string $message = "")
-    {
-        return [
-            "code" => 500,
-            "message" => $message,
-            "data" => []
-        ];
+        return $this->prepareData($data, $code, $message);
     }
 }
