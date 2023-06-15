@@ -12,4 +12,16 @@ class Media extends Model
     protected $fillable = [
         "path",
     ];
+
+    protected $hidden = [
+        "id",
+        "row_id",
+        "created_at",
+        "updated_at"
+    ];
+
+    protected function getPathAttribute($value)
+    {
+        return generateUrl($value);
+    }
 }

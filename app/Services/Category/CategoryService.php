@@ -26,31 +26,31 @@ class CategoryService implements ICategoryService
 
     public function create($attributes = [])
     {
-        $tableName = $this->categoryRepo->getEntityModel()->getTable();
-        $url =  $tableName . "/" . $attributes["file"][0];
 
         $response = $this->categoryRepo->create($attributes);
-        $file = $this->mediaRepo->create(["path" => $url]);
+        if (isset($attributes["file"])) {
+            
+            $url = $this->createUrl($attributes["file"][0]);
+            $response->media()->create(["path" => $url]);
 
-        $response->media()->attach(
-            $file->id,
-            [
-                "table" => $tableName
-            ]
-        );
-
-        ['url' => $url, 'headers' => ["Host" => [$host]]] = generateUploadUrl($url);
-        $response["url"] = $url;
-        $response["host"] = $host;
+            ['url' => $url, 'headers' => ["Host" => [$host]]] = generateUploadUrl($url);
+            $response["url"] = $url;
+            $response["host"] = $host;
+        }
 
         return $this->prepareData($response, 201, "create successful category!");
     }
 
     public function get()
     {
-        // $limit = 15;
-        // $response = Category::find(3);
-        // $data = $response->media()->paginate($limit);
-        // return $this->prepareData($data, 200, "get successful");
+        $limit = 15;
+        $response = $this->categoryRepo->getEntityModel()->with("media")->paginate($limit);
+        return $this->prepareData($response, 200, "get successful");
+    }
+
+    public function createUrl($nameFile)
+    {
+        $tableName = $this->categoryRepo->getEntityModel()->getTable();
+        return  $tableName . "/" . $nameFile;
     }
 }

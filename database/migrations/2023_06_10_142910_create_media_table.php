@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->increments('id'); // this will create an auto increment id with delete and update cascade
-            $table->text('path')->nullable(); // this will make the field nullable
+            $table->text('path')->nullable();
+            $table->integer('row_id')->unsigned()->nullable(); // this will make the field nullable
             $table->timestamps();
         });
     }
