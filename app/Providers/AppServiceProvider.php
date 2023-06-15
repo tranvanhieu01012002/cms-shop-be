@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
-        
+
         $this->app->bind(
             \App\Services\Auth\IAuthService::class,
             \App\Services\Auth\SanctumAuthService::class
@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\Category\CategoryService::class
         );
 
+        $this->app->bind(
+            \App\Services\Tag\ITagService::class,
+            \App\Services\Tag\TagService::class
+        );
     }
 
     /**

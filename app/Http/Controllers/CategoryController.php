@@ -21,9 +21,9 @@ class CategoryController extends Controller
         return $this->responseArray($response);
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $response = $this->categoryService->get();
+        $response = $this->categoryService->get($request);
         return $this->responseArray($response);
     }
 }

@@ -22,6 +22,11 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Media\IMediaRepository::class,
             \App\Repositories\Media\MediaRepository::class,
         );
+
+        $this->app->bind(
+            \App\Repositories\Tag\ITagRepository::class,
+            \App\Repositories\Tag\TagRepository::class
+        );
     }
 
     /**

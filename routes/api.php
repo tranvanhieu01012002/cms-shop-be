@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/users", [UserController::class, "getListUsers"]);
     Route::post("/categories", [CategoryController::class, "create"]);
     Route::get("/categories", [CategoryController::class, "get"]);
+    Route::get("/tags", [TagController::class, "get"]);
 });

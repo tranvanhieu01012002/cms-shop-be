@@ -26,24 +26,24 @@ abstract class BaseRepository implements IRepository
     abstract public function getModel();
 
     // Query methods
-    public function getAll()
+    public function getAll($column = ['*'])
     {
-        return $this->model->all();
+        return $this->model->all($column);
     }
 
-    public function paginate(int $limit = 20)
+    public function paginate(int $limit = 20, $column = ['*'])
     {
-        return $this->model->paginate($limit);
+        return $this->model->paginate($limit, $column);
     }
 
-    public function first()
+    public function first($column = ['*'])
     {
-        return $this->model->first();
+        return $this->model->first($column);
     }
 
-    public function find($id)
+    public function find($id, $column = ['*'])
     {
-        $result = $this->model->find($id);
+        $result = $this->model->find($id, $column);
 
         return $result;
     }

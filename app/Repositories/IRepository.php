@@ -8,13 +8,13 @@ interface IRepository
      * Get methods
      */
 
-    public function getAll();
+    public function getAll($columns);
 
-    public function find($id);
+    public function find($id, $columns);
 
-    public function paginate(int $limit);
+    public function paginate(int $limit, $columns);
 
-    public function first();
+    public function first($columns);
 
     public function getEntityModel();
 

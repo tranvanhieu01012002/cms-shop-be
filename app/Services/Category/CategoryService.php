@@ -2,11 +2,12 @@
 
 namespace App\Services\Category;
 
+use App\Constants\RestfulRule;
 use App\Models\Category;
 use App\Repositories\Category\ICategoryRepository;
 use App\Repositories\Media\IMediaRepository;
 use App\Traits\PrepareDataResponse;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class CategoryService implements ICategoryService
 {
@@ -29,7 +30,7 @@ class CategoryService implements ICategoryService
 
         $response = $this->categoryRepo->create($attributes);
         if (isset($attributes["file"])) {
-            
+
             $url = $this->createUrl($attributes["file"][0]);
             $response->media()->create(["path" => $url]);
 
@@ -41,10 +42,13 @@ class CategoryService implements ICategoryService
         return $this->prepareData($response, 201, "create successful category!");
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $limit = 15;
-        $response = $this->categoryRepo->getEntityModel()->with("media")->paginate($limit);
+        if ($request->has(RestfulRule::FIELDS)) {
+            $response = $this->categoryRepo->paginate(0, explode(",", $request->get(RestfulRule::FIELDS)));
+        } else {
+            $response = $this->categoryRepo->getEntityModel()->with("media")->paginate();
+        }
         return $this->prepareData($response, 200, "get successful");
     }
 

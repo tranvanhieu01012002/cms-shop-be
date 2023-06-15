@@ -2,9 +2,9 @@
 
 namespace App\Services\Category;
 
-interface ICategoryService
+use App\Services\IGetActionService;
+
+interface ICategoryService extends IGetActionService
 {
     public function create($attributes = []);
-
-    public function get();
 }
