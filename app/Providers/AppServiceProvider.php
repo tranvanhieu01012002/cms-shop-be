@@ -35,6 +35,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\Tag\ITagService::class,
             \App\Services\Tag\TagService::class
         );
+
+        $this->app->bind(
+            \App\Services\Variation\IVariationService::class,
+            \App\Services\Variation\VariationService::class
+        );
     }
 
     /**

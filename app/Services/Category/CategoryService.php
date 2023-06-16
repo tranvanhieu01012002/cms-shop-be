@@ -3,32 +3,26 @@
 namespace App\Services\Category;
 
 use App\Constants\RestfulRule;
-use App\Models\Category;
 use App\Repositories\Category\ICategoryRepository;
 use App\Repositories\Media\IMediaRepository;
-use App\Traits\PrepareDataResponse;
+use App\Services\BaseService;
 use Illuminate\Http\Request;
 
-class CategoryService implements ICategoryService
+class CategoryService extends BaseService implements ICategoryService
 {
-    use PrepareDataResponse;
-
-    protected ICategoryRepository $categoryRepo;
-
     protected IMediaRepository $mediaRepo;
 
     public function __construct(
         ICategoryRepository $categoryRepo,
         IMediaRepository $mediaRepo
     ) {
-        $this->categoryRepo = $categoryRepo;
+        $this->repo = $categoryRepo;
         $this->mediaRepo = $mediaRepo;
     }
 
     public function create($attributes = [])
     {
-
-        $response = $this->categoryRepo->create($attributes);
+        $response = $this->repo->create($attributes);
         if (isset($attributes["file"])) {
 
             $url = $this->createUrl($attributes["file"][0]);
@@ -45,16 +39,16 @@ class CategoryService implements ICategoryService
     public function get(Request $request)
     {
         if ($request->has(RestfulRule::FIELDS)) {
-            $response = $this->categoryRepo->paginate(0, explode(",", $request->get(RestfulRule::FIELDS)));
+           return parent::get($request);
         } else {
-            $response = $this->categoryRepo->getEntityModel()->with("media")->paginate();
+            $response = $this->repo->getEntityModel()->with("media")->paginate();
+            return $this->prepareData($response, 200, "get successful");
         }
-        return $this->prepareData($response, 200, "get successful");
     }
 
     public function createUrl($nameFile)
     {
-        $tableName = $this->categoryRepo->getEntityModel()->getTable();
+        $tableName = $this->repo->getEntityModel()->getTable();
         return  $tableName . "/" . $nameFile;
     }
 }

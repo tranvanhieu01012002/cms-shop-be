@@ -27,6 +27,11 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Tag\ITagRepository::class,
             \App\Repositories\Tag\TagRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Variation\IVariationRepository::class,
+            \App\Repositories\Variation\VariationRepository::class
+        );
     }
 
     /**
