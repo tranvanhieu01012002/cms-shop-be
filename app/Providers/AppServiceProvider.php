@@ -40,6 +40,16 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\Variation\IVariationService::class,
             \App\Services\Variation\VariationService::class
         );
+
+        $this->app->bind(
+            \App\Services\Tax\ITaxService::class,
+            \App\Services\Tax\TaxService::class
+        );
+
+        $this->app->bind(
+            \App\Services\Discount\IDiscountService::class,
+            \App\Services\Discount\DiscountService::class
+        );
     }
 
     /**

@@ -32,6 +32,16 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Variation\IVariationRepository::class,
             \App\Repositories\Variation\VariationRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Tax\ITaxRepository::class,
+            \App\Repositories\Tax\TaxRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Discount\IDiscountRepository::class,
+            \App\Repositories\Discount\DiscountRepository::class,
+        );
     }
 
     /**

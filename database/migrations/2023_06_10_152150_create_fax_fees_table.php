@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fax_fees', function (Blueprint $table) {
+        Schema::create('tax_fee', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->double('value', 10, 2);
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fax_fees');
+        Schema::dropIfExists('tax_fee');
     }
 };
