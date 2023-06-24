@@ -27,13 +27,25 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Tag\ITagRepository::class,
             \App\Repositories\Tag\TagRepository::class
         );
-    }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
+        $this->app->bind(
+            \App\Repositories\Product\IProductRepository::class,
+            \App\Repositories\Product\ProductRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Discount\IDiscountRepository::class,
+            \App\Repositories\Discount\DiscountRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Tax\ITaxRepository::class,
+            \App\Repositories\Tax\TaxRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Variation\IVariationRepository::class,
+            \App\Repositories\Variation\VariationRepository::class
+        );
     }
 }

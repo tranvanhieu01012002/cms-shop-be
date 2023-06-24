@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Discount extends Model
+class Tax extends Model
 {
     use HasFactory;
 
+    protected $table = "tax_fees";
+    
     protected $fillable = [
         'name',
         'value'

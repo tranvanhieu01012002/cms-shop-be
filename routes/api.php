@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VariationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +36,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/categories", [CategoryController::class, "create"]);
     Route::get("/categories", [CategoryController::class, "get"]);
     Route::get("/tags", [TagController::class, "get"]);
+    Route::get("/products", [ProductController::class, "get"]);
+    Route::get("/discounts", [DiscountController::class, "get"]);
+    Route::get("/tax", [TaxController::class, "get"]);
+    Route::get("/variations", [VariationController::class, "get"]);
 });

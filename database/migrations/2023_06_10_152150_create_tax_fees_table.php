@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fax_fees', function (Blueprint $table) {
+        Schema::create('tax_fees', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->double('value', 10, 2);
