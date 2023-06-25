@@ -4,6 +4,8 @@ namespace App\Services\Tag;
 
 use App\Repositories\Tag\ITagRepository;
 use App\Services\BaseService;
+use App\Traits\PrepareDataResponse;
+use Illuminate\Http\Request;
 
 class TagService extends BaseService implements ITagService
 {
@@ -11,4 +13,4 @@ class TagService extends BaseService implements ITagService
     {
         $this->repo = $tagRepo;
     }
-} 
+}

@@ -7,15 +7,13 @@ use Illuminate\Http\Request;
 
 class DiscountController extends Controller
 {
-    protected IDiscountService $discountService;
-
-    public function __construct(IDiscountService $discountService)
-    {
-        $this->discountService = $discountService;
+    public function __construct(
+        protected IDiscountService $discountSer
+    ) {
     }
 
     public function get(Request $request){
-        $response = $this->discountService->get($request);
-        return $this->responseArray($response);;
+        $response = $this->discountSer->get($request);
+        return $this->responseArray($response);
     }
 }

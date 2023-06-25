@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
-use App\Traits\PrepareDataResponse;
 use App\Constants\RestfulRule;
+use App\Traits\PrepareDataResponse;
+use Illuminate\Http\Request;
 
-class BaseService implements IGetActionService
+class BaseService
 {
     use PrepareDataResponse;
 

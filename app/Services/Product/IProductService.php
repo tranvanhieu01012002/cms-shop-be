@@ -2,7 +2,9 @@
 
 namespace App\Services\Product;
 
-interface IProductService
+use App\Services\IGetActionService;
+
+interface IProductService extends IGetActionService
 {
     public function getRelativeDataForCreate();
 }

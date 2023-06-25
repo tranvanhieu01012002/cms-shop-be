@@ -9,6 +9,6 @@ class DiscountRepository extends BaseRepository implements IDiscountRepository
 {
     public function getModel()
     {
-        return Discount::class; 
+        return Discount::class;
     }
 }

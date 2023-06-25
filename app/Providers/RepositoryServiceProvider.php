@@ -29,8 +29,13 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            \App\Repositories\Variation\IVariationRepository::class,
-            \App\Repositories\Variation\VariationRepository::class
+            \App\Repositories\Product\IProductRepository::class,
+            \App\Repositories\Product\ProductRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Discount\IDiscountRepository::class,
+            \App\Repositories\Discount\DiscountRepository::class
         );
 
         $this->app->bind(
@@ -39,16 +44,8 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            \App\Repositories\Discount\IDiscountRepository::class,
-            \App\Repositories\Discount\DiscountRepository::class,
+            \App\Repositories\Variation\IVariationRepository::class,
+            \App\Repositories\Variation\VariationRepository::class
         );
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
     }
 }

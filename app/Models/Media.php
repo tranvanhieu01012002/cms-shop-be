@@ -11,6 +11,7 @@ class Media extends Model
 
     protected $fillable = [
         "path",
+        "table_name"
     ];
 
     protected $hidden = [

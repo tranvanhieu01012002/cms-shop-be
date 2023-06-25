@@ -22,11 +22,12 @@ class CategoryService extends BaseService implements ICategoryService
 
     public function create($attributes = [])
     {
-        $response = $this->repo->create($attributes);
+
+        $category = $this->categoryRepo->create($attributes);
         if (isset($attributes["file"])) {
 
             $url = $this->createUrl($attributes["file"][0]);
-            $response->media()->create(["path" => $url]);
+            $category->media()->create(["path" => $url, "table_name" => "categories"]);
 
             ['url' => $url, 'headers' => ["Host" => [$host]]] = generateUploadUrl($url);
             $response["url"] = $url;

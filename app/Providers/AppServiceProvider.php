@@ -37,8 +37,13 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            \App\Services\Variation\IVariationService::class,
-            \App\Services\Variation\VariationService::class
+            \App\Services\Product\IProductService::class,
+            \App\Services\Product\ProductService::class
+        );
+
+        $this->app->bind(
+            \App\Services\Discount\IDiscountService::class,
+            \App\Services\Discount\DiscountService::class
         );
 
         $this->app->bind(
@@ -47,8 +52,8 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            \App\Services\Discount\IDiscountService::class,
-            \App\Services\Discount\DiscountService::class
+            \App\Services\Variation\IVariationService::class,
+            \App\Services\Variation\VariationService::class
         );
     }
 
