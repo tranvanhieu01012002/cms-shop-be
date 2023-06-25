@@ -2,7 +2,6 @@
 
 namespace App\Services\Tag;
 
-use App\Constants\RestfulRule;
 use App\Repositories\Tag\ITagRepository;
 use App\Services\BaseService;
 use App\Traits\PrepareDataResponse;
