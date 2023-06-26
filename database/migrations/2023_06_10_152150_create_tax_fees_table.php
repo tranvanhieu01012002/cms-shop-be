@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tax_fee');
+        Schema::dropIfExists('fax_fees');
     }
 };
