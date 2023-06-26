@@ -7,11 +7,8 @@ use Illuminate\Http\Request;
 
 class VariationController extends Controller
 {
-    protected IVariationService $variationService;
-
-    public function __construct(IVariationService $variationService)
+    public function __construct(protected IVariationService $variationService)
     {
-        $this->variationService = $variationService;
     }
 
     public function get(Request $request)

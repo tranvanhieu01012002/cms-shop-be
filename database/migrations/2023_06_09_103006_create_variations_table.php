@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('variations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
+            $table->string('value')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
         });

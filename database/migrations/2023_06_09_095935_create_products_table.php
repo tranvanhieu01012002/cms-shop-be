@@ -22,9 +22,7 @@ return new class extends Migration
             $table->integer('price')->nullable(); // nullable
             $table->string('status')->nullable(); // nullable
             $table->double('discount', 10, 2)->nullable(); // nullable
-            $table->double('tax_fee', 10, 2)->nullable(); 
-            $table->integer('discount_id')->nullable(); // nullable
-            $table->integer('tax_id')->nullable(); // nullable// nullable
+            $table->double('tax_fee', 10, 2)->nullable(); // nullable
             $table->timestamps(); // auto add timestamps
         });
     }
