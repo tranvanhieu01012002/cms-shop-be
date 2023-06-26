@@ -16,4 +16,11 @@ class ProductController extends Controller
         $response = $this->productSer->get($request);
         return $this->responseArray($response);
     }
+
+    public function create(Request $request)
+    {
+        $attribute = $request->only(['name', 'description', 'sku', 'categories', 'barcode', 'stock', 'price', 'status', 'discount', 'tax_fee', 'file']);
+        $response = $this->productSer->create($attribute);
+        return $this->responseArray($response);
+    }
 }

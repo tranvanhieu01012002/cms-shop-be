@@ -2,18 +2,69 @@ version: '3.7'
 services:
   db:
     image: 'mysql:latest'
-    container_name: db_cms
+    container_name: db_cms_docker
     ports:
       - '3306:3306'
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql/my.cnf:/etc/mysql/my.cnf
+      # - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_USER: admin1
       MYSQL_PASSWORD: password123
       MYSQL_DATABASE: db-cms
     restart: always
+    networks:
+      - laravel-networks
+  web_server:
+    depends_on:
+      - db
+      - app
+    image: 'nginx:latest'
+    ports:
+      - '8001:80'
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+    restart: always
+    networks:
+      - laravel-networks
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    working_dir: /var/www/html
+    user: "1000:1000"
+    volumes:
+      - ./:/var/www/html
+      - ./php/laravel_ini.ini:/usr/local/etc/php/config.d/custom_ini.ini
+    restart: always
+    networks:
+      - laravel-networks
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '6378:6379'
+    container_name: cms_redis
+    networks:
+      - laravel-networks
+    user: "1000:1000"
+    volumes:
+      - ./redis:/data
+    command:
+      ["redis-server"]
+    restart: always
+
+
+
 volumes:
   mysql_data:
+networks:
+  laravel-networks:
+    driver: bridge
 

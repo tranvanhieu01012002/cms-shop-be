@@ -6,5 +6,4 @@ use App\Repositories\IRepository;
 
 interface IProductRepository extends IRepository
 {
-    public function getRelativeDataForCreate();
 }
