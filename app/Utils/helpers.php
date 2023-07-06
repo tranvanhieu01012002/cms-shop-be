@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
+
 if (!function_exists("generateUploadUrl")) {
     function generateUploadUrl(string $url)
     {
@@ -10,10 +11,13 @@ if (!function_exists("generateUploadUrl")) {
 }
 
 if (!function_exists("generateUrl")) {
-    function generateUrl(string $url)
+    function generateUrl($url)
     {
-        $time = 10;
-        return Storage::temporaryUrl($url, now()->addMinutes($time));
+        if ($url) {
+            $time = 10;
+            return Storage::temporaryUrl($url, now()->addMinutes($time));
+        } else {
+            return null;
+        }
     }
 }
-

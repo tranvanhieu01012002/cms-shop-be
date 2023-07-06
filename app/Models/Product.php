@@ -30,9 +30,19 @@ class Product extends Model
         return $this->hasMany(Media::class, "row_id");
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function getCreatedAtAttribute($value)
     {
         $time = Carbon::create($value);
         return $time->toDayDateTimeString();
+    }
+
+    public function getStatusAttribute($status)
+    {
+        return strtoupper($status);
     }
 }

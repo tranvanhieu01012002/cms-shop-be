@@ -10,8 +10,6 @@ class Category extends Model
 {
     use HasFactory;
 
-    // protected $appends = ["image"];
-
     protected $fillable = [
         "name",
         "description",
@@ -33,15 +31,4 @@ class Category extends Model
     {
         return $this->hasMany(Media::class, "row_id");
     }
-
-    public function setNameAttribute(string $value)
-    {
-        $this->attributes["name"] = $value;
-        $this->attributes["slug"] = Str::slug($value);
-    }
-
-    // public function getImageAttribute()
-    // {
-    //     return $this->media();
-    // }
 }

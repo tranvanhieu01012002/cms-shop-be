@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Constants\Pagination;
+
 abstract class BaseRepository implements IRepository
 {
 
@@ -31,9 +33,18 @@ abstract class BaseRepository implements IRepository
         return $this->model->all($column);
     }
 
-    public function paginate(int $limit = 20, $column = ['*'])
+    public function paginate(int $limit = Pagination::LIMIT, $column = ['*'])
     {
-        return $this->model->paginate($limit, $column);
+        $page =  request()->query("page") ?? 1;
+        $limit = $limit > 1 ? $limit : Pagination::LIMIT;
+        $offset = $page == 1 ? 0 : ($page - 1) * $limit;
+        $count = $this->model->count();
+        return [
+            'masterData' => [
+                'count' => $count
+            ],
+            'data' => $this->model->offset($offset)->limit($limit)->latest()->get($column)
+        ];
     }
 
     public function first($column = ['*'])

@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Discount;
 use App\Models\Product;
 use App\Models\Tax;
+use App\Models\Variation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         Product::factory(50)->create();
         Category::factory(20)->create();
         Discount::factory()->create(["name" => "new member", "value" => 200]);
-        Tax::create(["name" => "new member", "value" => 200]);
+        Tax::create(["name" => "new member22", "value" => 200]);
+        Variation::factory()->create(["name" => "color", "value" => "red"]);
     }
 }
