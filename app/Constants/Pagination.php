@@ -12,4 +12,5 @@ final class Pagination
     const FIRST_PAGE = 1;
     const LIMIT = 20;
     const NUM_OF_AROUND_CURRENT_PAGE = 2;
+    const UNLIMITED = 0;
 }

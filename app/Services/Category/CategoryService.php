@@ -2,6 +2,7 @@
 
 namespace App\Services\Category;
 
+use App\Constants\Pagination;
 use App\Constants\RestfulRule;
 use App\Models\Category;
 use App\Repositories\Category\ICategoryRepository;
@@ -45,9 +46,9 @@ class CategoryService implements ICategoryService
     public function get(Request $request)
     {
         if ($request->has(RestfulRule::FIELDS)) {
-            $response = $this->categoryRepo->paginate(0, explode(",", $request->get(RestfulRule::FIELDS)));
+            $response = $this->categoryRepo->paginate(Pagination::UNLIMITED, explode(",", $request->get(RestfulRule::FIELDS)));
         } else {
-            $response = $this->categoryRepo->getEntityModel()->with("media")->paginate();
+            $response = $this->categoryRepo->paginationWithMedia();
         }
         return $this->prepareData($response, 200, "get successful");
     }

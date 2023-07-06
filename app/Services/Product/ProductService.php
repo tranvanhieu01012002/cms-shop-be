@@ -21,7 +21,7 @@ class ProductService implements IProductService
 
     public function get(Request $request)
     {
-        $response = $this->productRepo->paginate();
+        $response = $this->productRepo->paginateWithMediaAndCategories();
         return $this->prepareData(new ProductResourceCollection($response), 200, 'get successful');
     }
 
