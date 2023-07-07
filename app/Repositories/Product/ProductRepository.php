@@ -17,6 +17,7 @@ class ProductRepository extends BaseRepository implements IProductRepository
     {
         return $this->model
             ->with(['media', 'categories'])
+            ->latest()
             ->paginate($limit, $column);
     }
 }
