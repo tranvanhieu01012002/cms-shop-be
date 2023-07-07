@@ -17,7 +17,7 @@ class BaseService
     public function index(Request $request)
     {
         $columns = explode(',', $request->get(RestfulRule::FIELDS, '*'));
-        $response = $this->repo->paginate($columns);
+        $response = $this->repo->paginate(column: $columns);
         return $this->prepareData(new $this->resourceCollection($response));
     }
 
