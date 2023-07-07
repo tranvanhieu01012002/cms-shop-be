@@ -11,9 +11,9 @@ class ProductController extends Controller
     {
     }
 
-    public function get(Request $request)
+    public function index(Request $request)
     {
-        $response = $this->productSer->get($request);
+        $response = $this->productSer->index($request);
         return $this->responseArray($response);
     }
 

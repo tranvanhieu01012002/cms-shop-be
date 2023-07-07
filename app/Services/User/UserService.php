@@ -2,20 +2,17 @@
 
 namespace App\Services\User;
 
+use App\Constants\RestfulRule;
+use App\Http\Resources\User\UserCollectionResource;
 use App\Repositories\User\IUserRepository;
+use App\Services\BaseService;
 use Illuminate\Http\Request;
 
-class UserService implements IUserService
+class UserService extends BaseService implements IUserService
 {
-    protected IUserRepository $userRepo;
-
     public function __construct(IUserRepository $userRepo)
     {
-        $this->userRepo = $userRepo;
-    }
-
-    public function getListUsers(Request $request)
-    {
-        return $this->userRepo->getListUserWithoutAdmin();
+        $this->repo = $userRepo;
+        $this->resourceCollection = UserCollectionResource::class;
     }
 }

@@ -32,14 +32,14 @@ Route::post("/login", [AuthController::class, "login"]);
 Route::get("/test-temporary", [UserController::class, "generateUrl"]);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get("/users", [UserController::class, "getListUsers"]);
+    Route::get("/users", [UserController::class, "index"]);
     Route::post("/categories", [CategoryController::class, "create"]);
-    Route::get("/categories", [CategoryController::class, "get"]);
-    Route::get("/tags", [TagController::class, "get"]);
-    Route::get("/discounts", [DiscountController::class, "get"]);
-    Route::get("/tax", [TaxController::class, "get"]);
-    Route::get("/variations", [VariationController::class, "get"]);
+    Route::get("/categories", [CategoryController::class, 'index']);
+    Route::get("/tags", [TagController::class, 'index']);
+    Route::get("/discounts", [DiscountController::class, 'index']);
+    Route::get("/tax", [TaxController::class, 'index']);
+    Route::get("/variations", [VariationController::class, 'index']);
 
-    Route::get("/products", [ProductController::class, "get"]);
+    Route::get("/products", [ProductController::class, "index"]);
     Route::post("/products", [ProductController::class, "create"]);
 });

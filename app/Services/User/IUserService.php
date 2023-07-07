@@ -2,9 +2,9 @@
 
 namespace App\Services\User;
 
+use App\Services\IGetActionService;
 use Illuminate\Http\Request;
 
-interface IUserService
+interface IUserService extends IGetActionService
 {
-  public function getListUsers(Request $request);
 }

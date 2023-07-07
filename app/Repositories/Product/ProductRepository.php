@@ -15,7 +15,8 @@ class ProductRepository extends BaseRepository implements IProductRepository
 
     public function paginateWithMediaAndCategories(int $limit = Pagination::LIMIT, $column = ['*'])
     {
-        $this->setWith(['media', 'categories']);
-        return parent::paginate(limit: $limit, column: $column);
+        return $this->model
+            ->with(['media', 'categories'])
+            ->paginate($limit, $column);
     }
 }

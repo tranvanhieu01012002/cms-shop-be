@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\RestfulRule;
 use App\Services\Discount\IDiscountService;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
 {
     public function __construct(
-        protected IDiscountService $discountSer
+        protected IDiscountService $discountService
     ) {
     }
 
-    public function get(Request $request){
-        $response = $this->discountSer->get($request);
+    public function index(Request $request)
+    {
+        if ($request->has(RestfulRule::GET_ALL)) {
+            $response = $this->discountService->getAll($request);
+        } else {
+            $response = $this->discountService->index($request);
+        }
         return $this->responseArray($response);
     }
 }

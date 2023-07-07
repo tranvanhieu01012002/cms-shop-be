@@ -4,32 +4,28 @@ namespace App\Services\Category;
 
 use App\Constants\Pagination;
 use App\Constants\RestfulRule;
-use App\Models\Category;
 use App\Repositories\Category\ICategoryRepository;
 use App\Repositories\Media\IMediaRepository;
+use App\Services\BaseService;
 use App\Traits\PrepareDataResponse;
 use Illuminate\Http\Request;
 
-class CategoryService implements ICategoryService
+class CategoryService extends BaseService implements ICategoryService
 {
-    use PrepareDataResponse;
-
-    protected ICategoryRepository $categoryRepo;
-
     protected IMediaRepository $mediaRepo;
 
     public function __construct(
         ICategoryRepository $categoryRepo,
         IMediaRepository $mediaRepo
     ) {
-        $this->categoryRepo = $categoryRepo;
+        $this->repo = $categoryRepo;
         $this->mediaRepo = $mediaRepo;
     }
 
     public function create($attributes = [])
     {
 
-        $category = $this->categoryRepo->create($attributes);
+        $category = $this->repo->create($attributes);
         if (isset($attributes["file"])) {
 
             $url = $this->createUrl($attributes["file"][0]);
@@ -43,19 +39,19 @@ class CategoryService implements ICategoryService
         return $this->prepareData($response, 201, "create successful category!");
     }
 
-    public function get(Request $request)
-    {
-        if ($request->has(RestfulRule::FIELDS)) {
-            $response = $this->categoryRepo->paginate(Pagination::UNLIMITED, explode(",", $request->get(RestfulRule::FIELDS)));
-        } else {
-            $response = $this->categoryRepo->paginationWithMedia();
-        }
-        return $this->prepareData($response, 200, "get successful");
-    }
+    // public function index(Request $request)
+    // {
+    //     if ($request->has(RestfulRule::FIELDS)) {
+    //         $response = $this->repo->paginate(Pagination::UNLIMITED, explode(",", $request->get(RestfulRule::FIELDS)));
+    //     } else {
+    //         $response = $this->repo->paginationWithMedia();
+    //     }
+    //     return $this->prepareData($response, 200, "get successful");
+    // }
 
     public function createUrl($nameFile)
     {
-        $tableName = $this->categoryRepo->getEntityModel()->getTable();
+        $tableName = $this->repo->getEntityModel()->getTable();
         return  $tableName . "/" . $nameFile;
     }
 }

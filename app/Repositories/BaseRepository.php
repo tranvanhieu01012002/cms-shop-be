@@ -6,13 +6,7 @@ use App\Constants\Pagination;
 
 abstract class BaseRepository implements IRepository
 {
-
     protected $model;
-    protected $page;
-    protected $limit;
-    protected $offset;
-    protected $count;
-    protected $with = [];
 
     // Create model
     public function __construct()
@@ -20,13 +14,6 @@ abstract class BaseRepository implements IRepository
         $this->setModel();
     }
 
-    public function setPaginate($limit)
-    {
-        $this->page = request()->query("page") ?? 1;
-        $this->limit = (int) $limit;
-        $this->offset = $this->page == 1 ? 0 : ($this->page - 1) * $this->limit;
-        $this->count = $this->model->count();
-    }
     /**
      * Set model
      */
@@ -35,12 +22,6 @@ abstract class BaseRepository implements IRepository
         $this->model = app()->make(
             $this->getModel()
         );
-    }
-
-    public function setWith($with = [])
-    {
-        $this->with = $with;
-        return $this;
     }
 
     abstract public function getModel();
@@ -53,20 +34,7 @@ abstract class BaseRepository implements IRepository
 
     public function paginate(int $limit = Pagination::LIMIT, $column = ['*'])
     {
-        $this->setPaginate($limit);
-        return [
-            'masterData' => [
-                'count' => $this->count
-            ],
-            'data' => $this
-                ->model
-                ->with($this->with)
-                ->when($this->limit !== Pagination::UNLIMITED, function ($query) {
-                    $query->offset($this->offset)->limit($this->limit);
-                })
-                ->latest()
-                ->get($column)
-        ];
+        return $this->model->paginate($limit, $column);
     }
 
     public function first($column = ['*'])

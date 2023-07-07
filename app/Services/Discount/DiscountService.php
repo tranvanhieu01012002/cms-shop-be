@@ -7,7 +7,7 @@ use App\Services\BaseService;
 
 class DiscountService extends BaseService implements IDiscountService
 {
-    public function __construct(protected IDiscountRepository $discountRepo)
+    public function __construct(IDiscountRepository $discountRepo)
     {
         $this->repo = $discountRepo;
     }

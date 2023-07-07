@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 interface IGetActionService
 {
-    public function get(Request $request);
+    public function index(Request $request);
+
+    public function getAll(Request $request);
 }

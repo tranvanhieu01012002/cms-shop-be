@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\RestfulRule;
 use App\Http\Requests\CategoryRequest;
 use App\Services\Category\ICategoryService;
 use Illuminate\Http\Request;
@@ -21,9 +22,13 @@ class CategoryController extends Controller
         return $this->responseArray($response);
     }
 
-    public function get(Request $request)
+    public function index(Request $request)
     {
-        $response = $this->categoryService->get($request);
+        if ($request->has(RestfulRule::GET_ALL)) {
+            $response = $this->categoryService->getAll($request);
+        } else {
+            $response = $this->categoryService->index($request);
+        }
         return $this->responseArray($response);
     }
 }

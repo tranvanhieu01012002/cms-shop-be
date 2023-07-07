@@ -5,24 +5,23 @@ namespace App\Services\Product;
 use App\Http\Resources\Product\ProductResourceCollection;
 use App\Http\Resources\ProductResource;
 use App\Repositories\Product\IProductRepository;
+use App\Services\BaseService;
 use App\Traits\PrepareDataResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProductService implements IProductService
+class ProductService extends BaseService implements IProductService
 {
-
-    use PrepareDataResponse;
 
     public function __construct(
         protected IProductRepository $productRepo
     ) {
     }
 
-    public function get(Request $request)
+    public function index(Request $request)
     {
         $response = $this->productRepo->paginateWithMediaAndCategories();
-        return $this->prepareData(new ProductResourceCollection($response), 200, 'get successful');
+        return $this->prepareData(data: new ProductResourceCollection($response), message: 'get successful');
     }
 
     public function create($attribute = [])

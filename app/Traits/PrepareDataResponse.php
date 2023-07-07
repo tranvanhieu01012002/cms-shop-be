@@ -7,7 +7,7 @@ trait PrepareDataResponse
     public function prepareData(
         mixed $data = [],
         int $code = 200,
-        string $message = "",
+        string $message = ""
     ) {
         return [
             "code" => $code,
