@@ -25,20 +25,31 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean &&  rm -rf /var/lib/apt/lists/*
 
 # Install extenstion for PHP
-RUN docker-php-ext-install mysqli mysqlnd pdo pdo_mysql zip 
+RUN docker-php-ext-install pdo pdo_mysql
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 
 # Add composer to cached layer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install -n --no-progress --no-autoloader
+
 
 COPY . /var/www/html
 
-RUN composer install --no-progress --no-suggest -o -n
+# Autoload file after copy all content
+RUN composer dump-autoload
+
 # Assign permissions of the working directory to the www-data user
 RUN chown -R www-data:www-data \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache
 
-EXPOSE 8000
-CMD [ "php-fpm" ]
+COPY .env.docker.example .env
+RUN php artisan key:generate
+RUN php artisan optimize:clear
+
+EXPOSE 9000
+CMD [ "php-fpm"]
